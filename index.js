@@ -1,5 +1,7 @@
 const advice_Text = document.getElementById("advice_Message");
 const generateAdvice = document.getElementById("Gen_Advice");
+const loader = document.getElementById("loadAfter");
+loader.style.display = "none"
 
 // async function name(params) {
 
@@ -7,6 +9,8 @@ const generateAdvice = document.getElementById("Gen_Advice");
 
 const fetchData = async () => {
   try {
+    loader.style.display = "block";
+    advice_Text.innerHTML = "";
     const res_URL = await fetch("https://api.adviceslip.com/advice");
     if (!res_URL.ok) {
       const error_Message = `Error fetching data: ${res_URL.status}`;
@@ -22,6 +26,9 @@ const fetchData = async () => {
   } catch (error) {
     advice_Text.innerHTML = error.message;
     console.log(error);
+  }
+  finally{
+    loader.style.display = "none"
   }
 };
 
